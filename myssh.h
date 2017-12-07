@@ -7,6 +7,7 @@ class mySsh : public QObject
 {
     Q_OBJECT
 public:
+    //hello
     typedef struct m_sshInfo
     {
       QString userName;
