@@ -9,6 +9,7 @@
 #include "QTextCursor"
 #include "QFile"
 #include "QPushButton"
+#include "myssh.h"
 namespace Ui {
 class Widget;
 }
