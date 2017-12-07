@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         widget.cpp \
-    myqthread.cpp
+    myqthread.cpp \
+    myssh.cpp
 
 HEADERS += \
         widget.h \
-    myqthread.h
+    myqthread.h \
+    myssh.h
 
 
 
@@ -48,5 +50,5 @@ win32:CONFIG(release, debug|release): LIBS += -L$$PWD/lib/release/ -lQSsh
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/debug/ -lQSsh
 else:unix: LIBS += -L$$PWD/lib/ -lQSsh
 
-INCLUDEPATH += $$PWD/includes/ssh
-DEPENDPATH += $$PWD/includes/ssh
+INCLUDEPATH += $$PWD/include/ssh
+DEPENDPATH += $$PWD/include/ssh

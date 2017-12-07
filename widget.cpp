@@ -1,7 +1,5 @@
 #include "widget.h"
 #include "ui_widget.h"
-#include "myssh.h"
-#include "shell.h"
 #include "QDebug"
 #include "QThread"
 #include "myqthread.h"
@@ -108,8 +106,7 @@ void Widget::slot_SshReadyRead()
 /**********Widget Connect Button Clicked*************/
 void Widget::on_m_btn_connect_clicked(bool checked)
 {
-    btn_test = new QPushButton(this);
-    btn_test->show();
+
     m_params.userName = ui->m_line_username->text();
     m_params.password = ui->m_line_pwd->text();
     m_params.authenticationType = QSsh::SshConnectionParameters::AuthenticationTypePassword;
@@ -142,20 +139,16 @@ void Widget::slot_SshMProcessClosed()
 
 void Widget::slot_InputCmdLineReturnPressed()
 {
-    if(ui->m_line_inputcmd->text().length())
-    {
+    //if(ui->m_line_inputcmd->text().length())
+    //{
         m_process.data()->write(ui->m_line_inputcmd->text().toUtf8());
         m_process.data()->write("\n");
         ui->m_line_inputcmd->clear();
-    }
+    //}
 
     //m_process.data()->write()
     //ui->m_text_Ssh_Status->append("input return pressed");
 
 }
 
-//void Widget::keyPressEvent(QKeyEvent *key_event)
-//{
-//    if(key_event->key() == Qt::Key_Enter)
-//        ui->m_text_Ssh_Status->append("Key_Enter Pressed");
-//}
+

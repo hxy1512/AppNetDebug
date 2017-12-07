@@ -2,7 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include "includes/QSsh"
+#include "include/QSsh"
 #include <QThread>
 #include "myqthread.h"
 #include "QKeyEvent"
