@@ -6,7 +6,7 @@
 class mySsh : public QObject
 {
     Q_OBJECT
-private:
+public:
     typedef struct m_sshInfo
     {
       QString userName;
@@ -14,9 +14,7 @@ private:
       int port;
       int timeout;
       QString host;
-      QSsh::SshConnectionParameters::AuthenticationType m_type;
-
-
+      QSsh::SshConnectionParameters::AuthenticationType verifyType;
     }m_sshInfo;
 public:
     explicit mySsh(QObject *parent = nullptr);

@@ -115,6 +115,13 @@ void Widget::on_m_btn_connect_clicked(bool checked)
     m_params.host = ui->m_line_ip->text();
     //m_params.host = "127.0.0.1";
 
+    mySsh::m_sshInfo tmp_info;
+    tmp_info.userName = ui->m_line_username->text();
+    tmp_info.password = ui->m_line_pwd->text();
+    tmp_info.verifyType = QSsh::SshConnectionParameters::AuthenticationTypePassword;
+    tmp_info.port = ui->m_line_port->text().toInt();
+    tmp_info.timeout = 10;
+    tmp_info.host = ui->m_line_ip->text();
     m_connection = new QSsh::SshConnection(m_params, this);
     connect(m_connection, SIGNAL(connected()), this, SLOT(slot_SshConnected()));
     connect(m_connection, SIGNAL(error(QSsh::SshError)), this, SLOT(slot_SshError(QSsh::SshError)));
