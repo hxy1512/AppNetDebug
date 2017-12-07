@@ -31,20 +31,21 @@ private:
     QSharedPointer<QSsh::SshRemoteProcess> m_process;
     QFile *m_file;
     QPushButton *btn_test;
+    mySsh *m_ssh;
 signals:
 
 private slots:
-    void slot_SshConnected();
-    void slot_SshError(QSsh::SshError);
-    void slot_SshDisconnected();
-    void slot_SshDataAvailable(const QString &message);
+//    void slot_SshConnected();
+//    void slot_SshError(QSsh::SshError);
+//    void slot_SshDisconnected();
+//    void slot_SshDataAvailable(const QString &message);
     void on_m_btn_connect_clicked(bool checked);
-    void slot_SshReadyRead();
-    void slot_SshStarted();
-    void slot_SshReadyReadStandarOutput();
-    void slot_SshReadReadStandarError();
+//    void slot_SshReadyRead();
+//    void slot_SshStarted();
+//    void slot_SshReadyReadStandarOutput();
+//    void slot_SshReadReadStandarError();
     void on_m_btn_quit_clicked(bool checked);
-    void slot_SshMProcessClosed();
+//    void slot_SshMProcessClosed();
     void slot_InputCmdLineReturnPressed();
 protected:
     //void keyPressEvent(QKeyEvent *key_event);

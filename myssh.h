@@ -3,12 +3,13 @@
 
 #include <QObject>
 #include "include/QSsh"
+#include "QDebug"
 class mySsh : public QObject
 {
     Q_OBJECT
 public:
     //hello
-    typedef struct m_sshInfo
+    typedef struct SSHINFO
     {
       QString userName;
       QString password;
@@ -16,29 +17,32 @@ public:
       int timeout;
       QString host;
       QSsh::SshConnectionParameters::AuthenticationType verifyType;
-    }m_sshInfo;
+    }sshInfo;
+
 public:
     explicit mySsh(QObject *parent = nullptr);
-    void f_setSshInfo(m_sshInfo);
+    void f_setSshInfo(mySsh::sshInfo info);
+    void f_connectSshServer();
 
 signals:
 
 public slots:
+    void slot_SshConnected();
+    void slot_SshError(QSsh::SshError);
+    void slot_SshDisconnected();
+    void slot_SshDataAvailable(const QString &message);
+    void slot_SshReadyRead();
+    void slot_SshStarted();
+    void slot_SshReadyReadStandarOutput();
+    void slot_SshReadReadStandarError();
+    void slot_SshMProcessClosed();
 
 private:
+    mySsh::sshInfo *m_sshInfo;
     QSsh::SshConnectionParameters *m_params;
     QSsh::SshConnection *m_connection;
-    QSharedPointer<QSsh::SshRemoteProcess> *m_process;
+    QSharedPointer<QSsh::SshRemoteProcess> m_process;
 
-    /*
-     *
-     *     m_params.userName = ui->m_line_username->text();
-    m_params.password = ui->m_line_pwd->text();
-    m_params.authenticationType = QSsh::SshConnectionParameters::AuthenticationTypePassword;
-    m_params.port = ui->m_line_port->text().toInt();
-    m_params.timeout = 10;
-    m_params.host = ui->m_line_ip->text();
-    */
 };
 
 #endif // MYSSH_H
