@@ -26,12 +26,26 @@ void Widget::f_OpenSshConfig()
 {
     m_file = new QFile("sshConfigure.txt");
     m_file->open(QIODevice::ReadWrite);
-    while (!m_file->atEnd())
+    for(int i = 0; !m_file->atEnd(); i++)
     {
-        QString str= m_file->readLine();
+        QString str = m_file->readLine();
         str.replace("\n", "");
-        //ui->m_text_Ssh_Status->append(QString::number(str.length()));
-        ui->m_text_Ssh_Status->append(str);
+        switch (i) {
+        case 0://ip
+            ui->m_line_ip->setText(str);
+            break;
+        case 1: //user
+            ui->m_line_username->setText(str);
+            break;
+        case 2: //pwd
+            ui->m_line_pwd->setText(str);
+            break;
+        case 3: //port
+            ui->m_line_port->setText(str);
+            break;
+        default:
+            break;
+        }
     }
 }
 
@@ -72,9 +86,9 @@ Widget::~Widget()
 //    str.chop(2);
 //    //ui->m_text_Ssh_Status->append(m_process.data()->readAllStandardOutput().data());
 //    ui->m_text_Ssh_Status->append(str);
-////    QTextCursor cur = ui->m_text_Ssh_Status->textCursor();
-////    cur.movePosition(QTextCursor::End, QTextCursor::MoveAnchor);
-////    ui->m_text_Ssh_Status->setCursor(cur);
+//    QTextCursor cur = ui->m_text_Ssh_Status->textCursor();
+//    cur.movePosition(QTextCursor::End, QTextCursor::MoveAnchor);
+//    ui->m_text_Ssh_Status->setCursor(cur);
 //    //ui->m_text_Ssh_Status->foc;
 //}
 

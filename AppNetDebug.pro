@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         widget.cpp \
     myqthread.cpp \
-    myssh.cpp
+    myssh.cpp \
+    sshfileconfigure.cpp
 
 HEADERS += \
         widget.h \
     myqthread.h \
-    myssh.h
+    myssh.h \
+    sshfileconfigure.h
 
 
 
