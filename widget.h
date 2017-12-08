@@ -26,9 +26,9 @@ public:
 private:
     Ui::Widget *ui;
     myQThread *m_thread;
-    QSsh::SshConnectionParameters m_params;
-    QSsh::SshConnection * m_connection;
-    QSharedPointer<QSsh::SshRemoteProcess> m_process;
+//    QSsh::SshConnectionParameters m_params;
+//    QSsh::SshConnection * m_connection;
+//    QSharedPointer<QSsh::SshRemoteProcess> m_process;
     QFile *m_file;
     QPushButton *btn_test;
     mySsh *m_ssh;
@@ -47,6 +47,7 @@ private slots:
     void on_m_btn_quit_clicked(bool checked);
 //    void slot_SshMProcessClosed();
     void slot_InputCmdLineReturnPressed();
+    void slot_SshMessageShowUi(QString msg);
 protected:
     //void keyPressEvent(QKeyEvent *key_event);
 };

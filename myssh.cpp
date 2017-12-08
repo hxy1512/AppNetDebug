@@ -3,6 +3,7 @@
 mySsh::mySsh(QObject *parent) : QObject(parent)
 {
     //m_params = new QSsh::SshConnectionParameters;
+
 }
 
 void mySsh::f_setSshInfo(mySsh::sshInfo info)
@@ -36,6 +37,11 @@ void mySsh::f_connectSshServer()
 
 //    m_process.data()->start();
 
+}
+
+void mySsh::f_sendSshMessage(QString str)
+{
+    m_process.data()->write(str.toLatin1());
 }
 
 void mySsh::slot_SshConnected()
@@ -81,7 +87,8 @@ void mySsh::slot_SshReadyReadStandarOutput()
 {
     qDebug() << "xyfish: readreadstandaroutput";
     QString str = m_process.data()->readAllStandardOutput().data();
-    qDebug() << str;
+    //qDebug() << str;
+    emit sgn_msgShowUI(str);
 
 }
 

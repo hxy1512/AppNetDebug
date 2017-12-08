@@ -9,13 +9,15 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
-
+    m_ssh = new mySsh;
     ui->m_line_ip->setText("127.0.0.1");
     ui->m_line_port->setText("22");
     ui->m_line_pwd->setText("zxcasd");
     ui->m_line_username->setText("xyfish");
     ui->m_btn_connect->setText("connect");
     ui->m_btn_quit->setText("exit");
+    connect(ui->m_line_inputcmd, SIGNAL(returnPressed()), this, SLOT(slot_InputCmdLineReturnPressed()));
+    connect(m_ssh, SIGNAL(sgn_msgShowUI(QString)), this, SLOT(slot_SshMessageShowUi(QString)));
     f_OpenSshConfig();
    // m_thread = new myQThread(this);
 }
@@ -27,8 +29,8 @@ void Widget::f_OpenSshConfig()
     while (!m_file->atEnd())
     {
         QString str= m_file->readLine();
-        str.chop(1);
-        ui->m_text_Ssh_Status->append(QString::number(str.length()));
+        str.replace("\n", "");
+        //ui->m_text_Ssh_Status->append(QString::number(str.length()));
         ui->m_text_Ssh_Status->append(str);
     }
 }
@@ -37,7 +39,7 @@ Widget::~Widget()
 {
     delete ui;
     delete m_thread;
-    delete m_connection;
+    //delete m_connection;
 }
 /*********When Ssh Started Will Call This Func*************/
 //void Widget::slot_SshStarted()
@@ -107,15 +109,6 @@ Widget::~Widget()
 void Widget::on_m_btn_connect_clicked(bool checked)
 {
 
-//    m_params.userName = ui->m_line_username->text();
-//    m_params.password = ui->m_line_pwd->text();
-//    m_params.authenticationType = QSsh::SshConnectionParameters::AuthenticationTypePassword;
-//    m_params.port = ui->m_line_port->text().toInt();
-//    m_params.timeout = 10;
-//    m_params.host = ui->m_line_ip->text();
-    //m_params.host = "127.0.0.1";
-
-
     mySsh::sshInfo tmp_info;
     tmp_info.userName = ui->m_line_username->text();
     tmp_info.password = ui->m_line_pwd->text();
@@ -124,23 +117,15 @@ void Widget::on_m_btn_connect_clicked(bool checked)
     tmp_info.timeout = 10;
     tmp_info.host = ui->m_line_ip->text();
 
-    m_ssh = new mySsh;
+
     m_ssh->f_setSshInfo(tmp_info);
     m_ssh->f_connectSshServer();
-    //m_connection = new QSsh::SshConnection(m_params, this);
-//    connect(m_connection, SIGNAL(connected()), this, SLOT(slot_SshConnected()));
-//    connect(m_connection, SIGNAL(error(QSsh::SshError)), this, SLOT(slot_SshError(QSsh::SshError)));
-//    connect(m_connection, SIGNAL(disconnected()), this, SLOT(slot_SshDisconnected()));
-//    connect(m_connection, SIGNAL(dataAvailable(QString)), this, SLOT(slot_SshDataAvailable(QString)));
-//    connect(ui->m_line_inputcmd, SIGNAL(returnPressed()), this, SLOT(slot_InputCmdLineReturnPressed()));
-    //m_connection->connectToHost();
+
 }
 /**********Widget Quit Button Clicked****************/
 void Widget::on_m_btn_quit_clicked(bool checked)
 {
-//    m_process.data()->write("ls\n");
-//    m_process.data()->write("cd /tmp\n");
-//    m_process.data()->write("touch b.txt\n");
+    //m_ssh->f_sendSshMessage("ls\n");
     exit(0);
 }
 /********When Ssh Closed This Func Will Be Called**********/
@@ -153,13 +138,26 @@ void Widget::slot_InputCmdLineReturnPressed()
 {
     //if(ui->m_line_inputcmd->text().length())
     //{
-        m_process.data()->write(ui->m_line_inputcmd->text().toUtf8());
-        m_process.data()->write("\n");
+//        m_process.data()->write(ui->m_line_inputcmd->text().toUtf8());
+//        m_process.data()->write("\n");
+        QString sendMsg = ui->m_line_inputcmd->text();
+        sendMsg.append("\n");
+        m_ssh->f_sendSshMessage(sendMsg);
         ui->m_line_inputcmd->clear();
     //}
 
     //m_process.data()->write()
     //ui->m_text_Ssh_Status->append("input return pressed");
+
+}
+
+void Widget::slot_SshMessageShowUi(QString msg)
+{
+    //QString msgSend = msg;
+    msg.replace("\r", "");
+    //msg.chop(1);
+    qDebug() << msg;
+    ui->m_text_Ssh_Status->append(msg);
 
 }
 

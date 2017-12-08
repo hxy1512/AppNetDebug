@@ -23,9 +23,10 @@ public:
     explicit mySsh(QObject *parent = nullptr);
     void f_setSshInfo(mySsh::sshInfo info);
     void f_connectSshServer();
+    void f_sendSshMessage(QString);
 
 signals:
-
+    void sgn_msgShowUI(QString msg);
 public slots:
     void slot_SshConnected();
     void slot_SshError(QSsh::SshError);
