@@ -10,6 +10,7 @@
 #include "QFile"
 #include "QPushButton"
 #include "myssh.h"
+#include "sshfileconfigure.h"
 namespace Ui {
 class Widget;
 }
@@ -20,36 +21,28 @@ class Widget : public QWidget
 
 public:
     explicit Widget(QWidget *parent = 0);
-    void f_OpenSshConfig();
+    //void f_OpenSshConfig();
     ~Widget();
 
 private:
     Ui::Widget *ui;
-    myQThread *m_thread;
-//    QSsh::SshConnectionParameters m_params;
-//    QSsh::SshConnection * m_connection;
-//    QSharedPointer<QSsh::SshRemoteProcess> m_process;
+    myQThread *m_thread;//  not use
+
     QFile *m_file;
     QPushButton *btn_test;
     mySsh *m_ssh;
+    sshFileConfigure *m_fileConfig;
 signals:
 
 private slots:
-//    void slot_SshConnected();
-//    void slot_SshError(QSsh::SshError);
-//    void slot_SshDisconnected();
-//    void slot_SshDataAvailable(const QString &message);
+    void slot_readUserConfigureOK(mySsh::sshInfo myinfo);
     void on_m_btn_connect_clicked(bool checked);
-//    void slot_SshReadyRead();
-//    void slot_SshStarted();
-//    void slot_SshReadyReadStandarOutput();
-//    void slot_SshReadReadStandarError();
     void on_m_btn_quit_clicked(bool checked);
-//    void slot_SshMProcessClosed();
     void slot_InputCmdLineReturnPressed();
     void slot_SshMessageShowUi(QString msg);
+    //void slot_testSlot();
 protected:
-    //void keyPressEvent(QKeyEvent *key_event);
+
 };
 
 #endif // WIDGET_H

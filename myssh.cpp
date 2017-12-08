@@ -3,6 +3,7 @@
 mySsh::mySsh(QObject *parent) : QObject(parent)
 {
     //m_params = new QSsh::SshConnectionParameters;
+    connectStatus = false;
 
 }
 
@@ -10,7 +11,7 @@ void mySsh::f_setSshInfo(mySsh::sshInfo info)
 {
     m_sshInfo = new mySsh::sshInfo;
     m_sshInfo = &info;
-    qDebug() << m_sshInfo->host << m_sshInfo->password << m_sshInfo->userName << "xyfish~";
+    //qDebug() << m_sshInfo->host << m_sshInfo->password << m_sshInfo->userName << "xyfish~";
     m_params.host = info.host;
     m_params.password = info.password;
     m_params.port = info.port;
@@ -41,8 +42,29 @@ void mySsh::f_connectSshServer()
 
 void mySsh::f_sendSshMessage(QString str)
 {
-    m_process.data()->write(str.toLatin1());
+    if(mySsh::f_isConnected())
+        m_process.data()->write(str.toLatin1());
 }
+
+bool mySsh::f_isConnected()
+{
+    if(connectStatus)
+        return true;
+    else
+        return false;
+}
+
+//mySsh::sshInfo mySsh::operator=(mySsh::sshInfo &info2)
+//{
+//    mySsh::sshInfo info_rtn;
+//    info_rtn.host = info2.host;
+//    info_rtn.password = info2.password;
+//    info_rtn.port = info2.port;
+//    info_rtn.timeout = info2.timeout;
+//    info_rtn.userName = info2.userName;
+//    info_rtn.verifyType = info2.verifyType;
+//    return info_rtn;
+//}
 
 void mySsh::slot_SshConnected()
 {
@@ -81,6 +103,7 @@ void mySsh::slot_SshReadyRead()
 void mySsh::slot_SshStarted()
 {
     qDebug() << "xyfish: sshstarted";
+    connectStatus = true;
 }
 
 void mySsh::slot_SshReadyReadStandarOutput()

@@ -24,6 +24,8 @@ public:
     void f_setSshInfo(mySsh::sshInfo info);
     void f_connectSshServer();
     void f_sendSshMessage(QString);
+//    mySsh::sshInfo operator=(mySsh::sshInfo&);
+    bool f_isConnected();
 
 signals:
     void sgn_msgShowUI(QString msg);
@@ -39,6 +41,7 @@ public slots:
     void slot_SshMProcessClosed();
 
 private:
+    bool connectStatus;
     mySsh::sshInfo *m_sshInfo;
     QSsh::SshConnectionParameters m_params;
     QSsh::SshConnection *m_connection;
