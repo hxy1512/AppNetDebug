@@ -39,7 +39,7 @@ public slots:
 
 private:
     mySsh::sshInfo *m_sshInfo;
-    QSsh::SshConnectionParameters *m_params;
+    QSsh::SshConnectionParameters m_params;
     QSsh::SshConnection *m_connection;
     QSharedPointer<QSsh::SshRemoteProcess> m_process;
 

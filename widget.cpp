@@ -107,12 +107,12 @@ Widget::~Widget()
 void Widget::on_m_btn_connect_clicked(bool checked)
 {
 
-    m_params.userName = ui->m_line_username->text();
-    m_params.password = ui->m_line_pwd->text();
-    m_params.authenticationType = QSsh::SshConnectionParameters::AuthenticationTypePassword;
-    m_params.port = ui->m_line_port->text().toInt();
-    m_params.timeout = 10;
-    m_params.host = ui->m_line_ip->text();
+//    m_params.userName = ui->m_line_username->text();
+//    m_params.password = ui->m_line_pwd->text();
+//    m_params.authenticationType = QSsh::SshConnectionParameters::AuthenticationTypePassword;
+//    m_params.port = ui->m_line_port->text().toInt();
+//    m_params.timeout = 10;
+//    m_params.host = ui->m_line_ip->text();
     //m_params.host = "127.0.0.1";
 
 
