@@ -5,6 +5,7 @@
 #include "myqthread.h"
 #include "QTextCursor"
 #include "sshfileconfigure.h"
+#include "QTabWidget"
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
@@ -19,8 +20,9 @@ Widget::Widget(QWidget *parent) :
     connect(ui->m_line_inputcmd, SIGNAL(returnPressed()), this, SLOT(slot_InputCmdLineReturnPressed()));
     connect(m_ssh, SIGNAL(sgn_msgShowUI(QString)), this, SLOT(slot_SshMessageShowUi(QString)));
     connect(m_fileConfig, SIGNAL(sgn_readUserConfigureOK(mySsh::sshInfo)), this, SLOT(slot_readUserConfigureOK(mySsh::sshInfo)));
-    //qDebug() << "ok: " << ok;
+
     m_fileConfig->f_getSshUserConfigure();
+    testfunc();
 }
 
 
@@ -30,6 +32,17 @@ Widget::~Widget()
     delete ui;
     delete m_thread;
 
+}
+
+void Widget::testfunc()
+{
+    //ui->m_tab_debug->addTab(NULL, "HELLO");
+    QPushButton *btn1 = new QPushButton;
+    btn1->setText("push me");
+    //ui->m_tab_debug->addTab(btn1, "eoo");
+    ui->m_tab_debug->setTabText(0, "bcm");
+    ui->m_tab_debug->setTabText(1, "tcm");
+    //ui->m_tab_debug->settab
 }
 
 void Widget::slot_readUserConfigureOK(mySsh::sshInfo myinfo)
@@ -63,7 +76,6 @@ void Widget::on_m_btn_connect_clicked(bool checked)
 /**********Widget Quit Button Clicked****************/
 void Widget::on_m_btn_quit_clicked(bool checked)
 {
-    //m_ssh->f_sendSshMessage("ls\n");
     exit(0);
 }
 

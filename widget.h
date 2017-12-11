@@ -23,6 +23,7 @@ public:
     explicit Widget(QWidget *parent = 0);
     //void f_OpenSshConfig();
     ~Widget();
+    void testfunc();
 
 private:
     Ui::Widget *ui;
